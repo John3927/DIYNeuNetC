@@ -14,7 +14,7 @@ int main(int argc, char *argv[]) {
   pair<Edge, Node> n1F = std::make_pair(edge1, node1);
 
   Node node2(1, r);
-  Edge edge2 = {4, -1};
+  Edge edge2 = {4, 0};
   pair<Edge, Node> n2F = std::make_pair(edge2, node2);
   Node nodeF(0, r);
 
