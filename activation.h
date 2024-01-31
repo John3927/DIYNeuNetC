@@ -1,7 +1,6 @@
 #ifndef ACTIVATION_H
 #define ACTIVATION_H
 
-#include <algorithm>
 #include <math.h>
 
 class Activation {
@@ -11,7 +10,7 @@ public:
 
 class ReLU : public Activation {
 public:
-  double operator()(double d) override { return std::max(0.0, d); }
+  double operator()(double d) override { return d > 0 ? d : 0; }
 };
 
 class Tanh : public Activation {

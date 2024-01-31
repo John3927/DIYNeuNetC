@@ -23,7 +23,9 @@ public:
 
   void addParent(std::pair<Edge, Node> &edgedParent);
   void updateVal();
-  double getVale() const { return val; }
+  double getVal() const { return val; }
+
+  ~Node();
 };
 
 #endif // !NODE_H
