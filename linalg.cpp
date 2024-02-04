@@ -9,7 +9,6 @@ using std::vector;
 std::vector<double> matrixMult(const std::vector<std::vector<double>> &A,
                                const std::vector<double> &B) {
   int Acols = A.size();
-  int Bcols = 1;
 
   if (Acols == 0)
     throw std::runtime_error("Empty matrix");
@@ -26,7 +25,7 @@ std::vector<double> matrixMult(const std::vector<std::vector<double>> &A,
   vector<double> result(Arows, 0);
 
   // r tracks output rows
-  for (int r = 0; r < Brows; ++r) {
+  for (int r = 0; r < Arows; ++r) {
     // i tracks A column vs B row
     for (int i = 0; i < Acols; ++i) {
       result[r] += A[i][r] * B[i];
