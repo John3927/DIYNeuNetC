@@ -1,29 +1,27 @@
 #include "activation.h"
+#include "linalg.h"
 #include "node.h"
+#include <cassert>
 #include <iostream>
 #include <utility>
+#include <vector>
 
 using namespace std;
 
+void testMatVecMult() {
+  cout << "Testing mat vec multi..." << endl;
+  vector<vector<double>> A = {{1, 2}, {3, 4}};
+  vector<double> B = {-2, 7};
+
+  vector<double> result = matrixMult(A, B);
+  assert(result[0] == 19);
+  assert(result[1] == 24);
+}
+
 int main(int argc, char *argv[]) {
 
-  ReLU r;
-
-  Node node1(3, r);
-  Edge edge1 = {2, 1};
-  pair<Edge, Node> n1F = std::make_pair(edge1, node1);
-
-  Node node2(1, r);
-  Edge edge2 = {4, 0};
-  pair<Edge, Node> n2F = std::make_pair(edge2, node2);
-  Node nodeF(0, r);
-
-  nodeF.addParent(n1F);
-  nodeF.addParent(n2F);
-
-  nodeF.updateVal();
-
-  cout << nodeF.getVale() << endl;
+  testMatVecMult();
+  cout << "All tests passed!" << endl;
 
   return 0;
 }
