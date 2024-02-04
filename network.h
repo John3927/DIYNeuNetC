@@ -1,7 +1,6 @@
 #ifndef NETWORK_H
 #define NETWORK_H
 
-#include "node.h"
 #include <memory>
 #include <vector>
 
