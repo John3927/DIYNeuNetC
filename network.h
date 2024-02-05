@@ -1,6 +1,7 @@
 #ifndef NETWORK_H
 #define NETWORK_H
 
+#include "layer.h"
 #include <memory>
 #include <vector>
 
@@ -8,13 +9,14 @@ class Network {
 private:
   int inputSize;
   int outputSize;
-  int numHiddenLayers;
-  std::vector<int> hiddenLayerSizes;
+  // std::vector<int> hiddenLayerSizes;
+  std::vector<Layer> layers;
 
 public:
   Network();
   Network(int inSize, int outSize);
   // Network(int inSize, int outSize, int hiddenLayerSizes, ...);
+  Network(int inSize, int outSize, int numHidden, int defaultHiddenLayerSize);
 
   // copy this sizes bro
   Network(int inSize, int outSize, std::vector<int> hiddenSizes);

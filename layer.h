@@ -5,12 +5,13 @@
 #include <tuple>
 #include <vector>
 
-struct Edge {
-  double weight;
-  double bias;
-};
+// struct Edge {
+//   double weight;
+//   double bias;
+// };
 
 class Layer {
+
 protected:
   std::vector<double> vals;
 
@@ -38,7 +39,10 @@ public:
   Layer(int s, Layer *next);
   Layer(int s, Layer *next, Layer *prev);
   void updateVal();
+  std::vector<double> getVals() const { return vals; }
   ~Layer();
+
+  friend class Network;
 };
 
 class ReLULayer : public Layer {

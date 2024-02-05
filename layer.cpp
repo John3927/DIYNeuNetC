@@ -15,17 +15,25 @@ Layer::Layer(int s)
 
 Layer::Layer(int s, Layer *next)
     : size(s), vals(s, 0), weights(s, std::vector<double>(next->size, 0)),
-      biases(s, std::vector<double>(next->size, 0)), nextLayer(next) {}
+      biases(s, std::vector<double>(next->size, 0)), nextLayer(next) {
+  next->prevLayer = this;
+}
+
 Layer::Layer(int s, Layer *next, Layer *prev)
     : size(s), vals(s, 0), weights(s, std::vector<double>(next->size, 0)),
       biases(s, std::vector<double>(next->size, 0)), prevLayer(prev),
-      nextLayer(next) {}
+      nextLayer(next) {
+
+  next->prevLayer = this;
+  prev->nextLayer = this;
+}
 
 Layer::~Layer() {}
 
 void Layer::updateVal() {
   // weights times vals
   vals = matrixMult(prevLayer->weights, prevLayer->vals);
+  // TODO why dont i do it in one go
   // im not checking biases (im lazy)
   int prevS = prevLayer->size;
 
