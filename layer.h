@@ -11,11 +11,19 @@ struct Edge {
 };
 
 class Layer {
+protected:
+  std::vector<double> vals;
+
 private:
   int size;
-  double *vals;
-  double **weights;
-  double **biases;
+  // both are coloumn major
+  // columns represent what each val
+  // contribute to each result
+  // value in i col j row is the contribution of the
+  // i th variable to the j th output
+  //  [i][j] goes from ith input to jth output
+  std::vector<std::vector<double>> weights;
+  std::vector<std::vector<double>> biases;
 
   Layer *prevLayer;
   Layer *nextLayer;
@@ -27,8 +35,8 @@ private:
 public:
   Layer();
   Layer(int s);
-  Layer(int s, Layer *prev);
-  Layer(int s, Layer *prev, Layer *next);
+  Layer(int s, Layer *next);
+  Layer(int s, Layer *next, Layer *prev);
   void updateVal();
   ~Layer();
 };
@@ -37,7 +45,7 @@ class ReLULayer : public Layer {
   void activate() override;
 };
 
-class TanH : public Layer {
+class TanhLayer : public Layer {
   void activate() override;
 };
 

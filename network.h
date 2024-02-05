@@ -9,11 +9,7 @@ private:
   int inputSize;
   int outputSize;
   int numHiddenLayers;
-  std::vector<std::unique_ptr<Node>> inputs;
-  std::vector<int> hiddenLayerSizes; // length must be at least 2
-  std::vector<std::unique_ptr<Node>> outputs;
-
-  Activation defaultActivation;
+  std::vector<int> hiddenLayerSizes;
 
 public:
   Network();
@@ -25,7 +21,7 @@ public:
 
   // void evaluate(const double &inputs, ...);
   // call and forget
-  std::vector<double> evaluate(const std::vector<double> &inputs);
+  std::vector<double> foward(const std::vector<double> &inputs);
 
   ~Network();
 };
