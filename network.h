@@ -10,7 +10,7 @@ private:
   int inputSize;
   int outputSize;
   // std::vector<int> hiddenLayerSizes;
-  std::vector<Layer> layers;
+  std::vector<std::shared_ptr<Layer>> layers;
 
 public:
   Network();

@@ -1,7 +1,9 @@
 #include "layer.h"
 #include <cmath>
+#include <memory>
 #include <vector>
 
+using std::shared_ptr;
 using std::vector;
 
 Layer::Layer()
@@ -9,19 +11,19 @@ Layer::Layer()
 Layer::Layer(int s)
     : size(s), vals(s, 0), bias(0), weights(s, std::vector<double>(1, 0)) {}
 
-Layer::Layer(int s, Layer *next)
+Layer::Layer(int s, shared_ptr<Layer> next)
     : size(s), vals(s, 0), bias(0),
       weights(s, std::vector<double>(next->size, 0)), nextLayer(next) {
-  next->prevLayer = this;
+  next->prevLayer = shared_ptr<Layer>(this);
 }
 
-Layer::Layer(int s, Layer *next, Layer *prev)
+Layer::Layer(int s, shared_ptr<Layer> next, shared_ptr<Layer> prev)
     : size(s), vals(s, 0), bias(0),
       weights(s, std::vector<double>(next->size, 0)), prevLayer(prev),
       nextLayer(next) {
 
-  next->prevLayer = this;
-  prev->nextLayer = this;
+  next->prevLayer = shared_ptr<Layer>(this);
+  prev->nextLayer = shared_ptr<Layer>(this);
 
   // resize, this messes the number of columns
   for (auto &v : prev->weights)
