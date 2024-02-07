@@ -25,6 +25,8 @@ public:
   // call and forget
   std::vector<double> foward(const std::vector<double> &inputs);
 
+  void initializeParameters();
+
   ~Network();
 };
 

@@ -17,6 +17,8 @@ protected:
 
 private:
   int size;
+
+  double bias;
   // both are coloumn major
   // columns represent what each val
   // contribute to each result
@@ -24,7 +26,7 @@ private:
   // i th variable to the j th output
   //  [i][j] goes from ith input to jth output
   std::vector<std::vector<double>> weights;
-  std::vector<std::vector<double>> biases;
+  // std::vector<std::vector<double>> biases;
 
   Layer *prevLayer;
   Layer *nextLayer;

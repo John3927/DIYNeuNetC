@@ -52,7 +52,7 @@ vector<double> Network::foward(const std::vector<double> &inputs) {
 
   layers[0].vals = inputs;
   for (int i = 1; i < layers.size(); ++i) {
+    layers[i].updateVal();
   }
-  // stub
   return layers.back().vals;
 }
