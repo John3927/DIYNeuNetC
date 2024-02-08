@@ -3,6 +3,7 @@
 #include <cmath>
 #include <memory>
 #include <random>
+#include <stdexcept>
 #include <vector>
 
 using std::make_shared;
@@ -17,7 +18,7 @@ Network::Network() : inputSize(1), outputSize(1), layers(2) {
 Network::Network(int inSize, int outSize)
     : inputSize(inSize), outputSize(outSize), layers(2) {
   layers[1] = make_shared<Layer>(outSize);
-  layers[0] = make_shared<Layer>(inSize, &layers[1]);
+  layers[0] = make_shared<Layer>(inSize, layers[1]);
 }
 
 // constructor given number of
@@ -30,11 +31,11 @@ Network::Network(int inSize, int outSize, int numHidden,
 
   // middle
   for (int i = numHidden; i >= 1; i--) {
-    layers[i] = make_shared<Layer>(defaultHiddenLayerSize, &layers[i]);
+    layers[i] = make_shared<Layer>(defaultHiddenLayerSize, layers[i]);
   }
 
   // input
-  layers[0] = make_shared<Layer>(inSize, &layers[1]);
+  layers[0] = make_shared<Layer>(inSize, layers[1]);
 }
 
 // construtor given arbitrary hidden layer sizes
@@ -45,17 +46,20 @@ Network::Network(int inSize, int outSize, std::vector<int> hiddenSizes)
 
   // middle
   for (int i = numHiddenLayers; i >= 0; i--) {
-    layers[i] = make_shared<Layer>(hiddenSizes[i - 1], &layers[i]);
+    layers[i] = make_shared<Layer>(hiddenSizes[i - 1], layers[i]);
   }
 
   // inpt
-  layers[0] = make_shared<Layer>(inSize, &layers[1]);
+  layers[0] = make_shared<Layer>(inSize, layers[1]);
 }
 
 vector<double> Network::foward(const std::vector<double> &inputs) {
 
+  if (layers[0]->vals.size() != inputs.size()) {
+    throw std::runtime_error("Wrong size of inputs");
+  }
   layers[0]->vals = inputs;
-  for (int i = 1; i < layers.size(); ++i) {
+  for (int i = 1; i < (int)layers.size(); ++i) {
     layers[i]->updateVal();
   }
   return layers.back()->vals;
@@ -66,7 +70,7 @@ void Network::initParam() {
   std::normal_distribution<double> normal;
 
   // skip last
-  for (int i = 0; i < layers.size() - 1; i++) {
+  for (int i = 0; i < (int)layers.size() - 1; i++) {
     const auto &l = layers[i];
     l->bias = 0;
     // xavier normal

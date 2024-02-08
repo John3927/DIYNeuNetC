@@ -26,8 +26,6 @@ public:
   std::vector<double> foward(const std::vector<double> &inputs);
 
   void initParam();
-
-  ~Network();
 };
 
 #endif // !NETWORK_H
