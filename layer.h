@@ -29,8 +29,8 @@ private:
   std::vector<std::vector<double>> weights;
   // std::vector<std::vector<double>> biases;
 
-  std::shared_ptr<Layer> prevLayer;
-  std::shared_ptr<Layer> nextLayer;
+  Layer *prevLayer;
+  Layer *nextLayer;
 
   virtual void activate();
 
@@ -39,13 +39,14 @@ private:
 public:
   Layer();
   Layer(int s);
-  Layer(int s, std::shared_ptr<Layer> next);
-  Layer(int s, std::shared_ptr<Layer> next, std::shared_ptr<Layer> prev);
+  Layer(int s, Layer *next);
+  Layer(int s, Layer *next, Layer *prev);
   void updateVal();
   std::vector<double> getVals() const { return vals; }
-  ~Layer();
+  virtual ~Layer();
 
   friend class Network;
+  friend class Test;
 };
 
 class ReLULayer : public Layer {

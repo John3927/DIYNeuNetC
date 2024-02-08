@@ -10,7 +10,7 @@ private:
   int inputSize;
   int outputSize;
   // std::vector<int> hiddenLayerSizes;
-  std::vector<std::shared_ptr<Layer>> layers;
+  std::vector<Layer *> layers;
 
 public:
   Network();
@@ -26,6 +26,9 @@ public:
   std::vector<double> foward(const std::vector<double> &inputs);
 
   void initParam();
+
+  ~Network();
+  friend class Test;
 };
 
 #endif // !NETWORK_H

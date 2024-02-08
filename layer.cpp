@@ -1,36 +1,37 @@
 #include "layer.h"
 #include <cmath>
-#include <memory>
+#include <iostream>
+// #include <memory>
 #include <vector>
 
-using std::shared_ptr;
+// using std::shared_ptr;
 using std::vector;
 
 Layer::Layer()
-    : size(1), vals(1, 0), bias(0), weights(1, std::vector<double>(1, 0)) {}
+    : vals(1, 0), size(1), bias(0), weights(1, std::vector<double>(1, 0)) {}
 Layer::Layer(int s)
-    : size(s), vals(s, 0), bias(0), weights(s, std::vector<double>(1, 0)) {}
+    : vals(s, 0), size(s), bias(0), weights(s, std::vector<double>(1, 0)) {}
 
-Layer::Layer(int s, shared_ptr<Layer> next)
-    : size(s), vals(s, 0), bias(0),
+Layer::Layer(int s, Layer *next)
+    : vals(s, 0), size(s), bias(0),
       weights(s, std::vector<double>(next->size, 0)), nextLayer(next) {
-  next->prevLayer = shared_ptr<Layer>(this);
+  next->prevLayer = this;
 }
 
-Layer::Layer(int s, shared_ptr<Layer> next, shared_ptr<Layer> prev)
-    : size(s), vals(s, 0), bias(0),
+Layer::Layer(int s, Layer *next, Layer *prev)
+    : vals(s, 0), size(s), bias(0),
       weights(s, std::vector<double>(next->size, 0)), prevLayer(prev),
       nextLayer(next) {
 
-  next->prevLayer = shared_ptr<Layer>(this);
-  prev->nextLayer = shared_ptr<Layer>(this);
+  next->prevLayer = this;
+  prev->nextLayer = this;
 
   // resize, this messes the number of columns
   for (auto &v : prev->weights)
     v.resize(s);
 }
 
-Layer::~Layer() {}
+Layer::~Layer() { std::cout << this << " layer deleted" << std::endl; }
 
 void Layer::updateVal() {
   // weights times vals

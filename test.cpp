@@ -1,7 +1,7 @@
 #include "layer.h"
 #include "network.h"
 #include <iostream>
-#include <memory>
+// #include <memory>
 #include <vector>
 
 using namespace std;
@@ -17,24 +17,42 @@ using namespace std;
 // }
 //
 //
-void testLayer() {
-  auto l1 = make_shared<Layer>(2);
-  auto l2 = make_shared<Layer>(2, l1);
-}
+class Test {
+public:
+  static void testLayer() {
+    auto l1 = new Layer(2);
+    auto l2 = new Layer(2);
+    // auto l2 = make_shared<Layer>(2, l1);
 
-void testLotsOfThings() {
+    l2->nextLayer = l1;
 
-  Network net(2, 1, 2, 2);
-  net.initParam();
-  auto result = net.foward(vector<double>{5, 6});
-  cout << result[0] << endl;
-}
+    cout << "so far so good \n";
+
+    auto l3 = new Layer(2, l2);
+
+    delete l1;
+    delete l2;
+    delete l3;
+  }
+
+  static void testLotsOfThings() {
+
+    cout << "testing a lot of things" << endl;
+    Network net(2, 1, 2, 2);
+    cout << "constructed" << endl;
+    net.initParam();
+    cout << "param-ed" << endl;
+    auto result = net.foward(vector<double>{5, 6});
+    cout << "fowarded-ed" << endl;
+    cout << result[0] << endl;
+  }
+};
 
 int main(int argc, char *argv[]) {
 
   // testMatVecMult();
-  testLayer();
-  // testLotsOfThings();
+  Test::testLayer();
+  Test::testLotsOfThings();
   cout << "All tests passed!" << endl;
 
   return 0;
