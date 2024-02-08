@@ -1,6 +1,8 @@
 #include "network.h"
 #include "layer.h"
+#include <cmath>
 #include <memory>
+#include <random>
 #include <vector>
 
 using std::make_shared;
@@ -57,4 +59,25 @@ vector<double> Network::foward(const std::vector<double> &inputs) {
     layers[i]->updateVal();
   }
   return layers.back()->vals;
+}
+
+void Network::initParam() {
+  std::default_random_engine generator;
+  std::normal_distribution<double> normal;
+
+  // skip last
+  for (int i = 0; i < layers.size() - 1; i++) {
+    const auto &l = layers[i];
+    l->bias = 0;
+    // xavier normal
+    normal = std::normal_distribution<double>(
+        0, std::sqrt(2 / (l->size + l->nextLayer->size)));
+
+    // intialize weights
+    for (auto &v : l->weights) {
+      for (auto &w : v) {
+        w = normal(generator);
+      }
+    }
+  }
 }
