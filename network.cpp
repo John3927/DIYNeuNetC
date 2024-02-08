@@ -66,7 +66,8 @@ vector<double> Network::foward(const std::vector<double> &inputs) {
 }
 
 void Network::initParam() {
-  std::default_random_engine generator;
+  std::random_device device;
+  std::default_random_engine generator(device());
   std::normal_distribution<double> normal;
 
   // skip last

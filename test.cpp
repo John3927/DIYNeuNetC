@@ -38,11 +38,11 @@ public:
   static void testLotsOfThings() {
 
     cout << "testing a lot of things" << endl;
-    Network net(2, 1, 2, 2);
+    Network net(8, 1, 4, 8);
     cout << "constructed" << endl;
     net.initParam();
     cout << "param-ed" << endl;
-    auto result = net.foward(vector<double>{5, 6});
+    auto result = net.foward(vector<double>{5, 6, 7, 8, 9, 10, -2, -4});
     cout << "fowarded-ed" << endl;
     cout << result[0] << endl;
   }
