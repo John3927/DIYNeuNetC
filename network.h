@@ -23,7 +23,7 @@ public:
 
   // void evaluate(const double &inputs, ...);
   // call and forget
-  std::vector<double> foward(const std::vector<double> &inputs);
+  std::vector<double> forward(const std::vector<double> &inputs);
 
   void initParam();
 

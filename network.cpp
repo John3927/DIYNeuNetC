@@ -53,7 +53,7 @@ Network::Network(int inSize, int outSize, std::vector<int> hiddenSizes)
   layers[0] = new Layer(inSize, layers[1]);
 }
 
-vector<double> Network::foward(const std::vector<double> &inputs) {
+vector<double> Network::forward(const std::vector<double> &inputs) {
 
   if (layers[0]->vals.size() != inputs.size()) {
     throw std::runtime_error("Wrong size of inputs");
