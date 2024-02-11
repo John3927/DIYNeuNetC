@@ -54,19 +54,43 @@ void Layer::updateVal() {
 }
 
 void Layer::activate() {
-  // base activate doesn't do anything
+  switch (activationFunction) {
+  case RELU:
+    reluActivate();
+    break;
+
+  case TANH:
+    tanhActivate();
+    break;
+
+  case LINEAR:
+  default:
+    break;
+  }
 }
 
-// 0 if negative
-void ReLULayer::activate() {
+void Layer::reluActivate() {
   for (auto i = vals.begin(); i < vals.end(); i++) {
     *i = *i > 0 ? *i : 0;
   }
 }
 
 // tanh
-void TanhLayer::activate() {
+void Layer::tanhActivate() {
   for (auto i = vals.begin(); i < vals.end(); i++) {
     *i = tanh(*i);
   }
 }
+// 0 if negative
+// void ReLULayer::activate() {
+//   for (auto i = vals.begin(); i < vals.end(); i++) {
+//     *i = *i > 0 ? *i : 0;
+//   }
+// }
+
+// // tanh
+// void TanhLayer::activate() {
+//   for (auto i = vals.begin(); i < vals.end(); i++) {
+//     *i = tanh(*i);
+//   }
+// }

@@ -11,6 +11,8 @@
 //   double bias;
 // };
 
+enum ActivationType { LINEAR, RELU, TANH };
+
 class Layer {
 
 protected:
@@ -32,8 +34,12 @@ private:
   Layer *prevLayer;
   Layer *nextLayer;
 
+  ActivationType activationFunction = LINEAR;
+
   virtual void activate();
 
+  void reluActivate();
+  void tanhActivate();
   //=operator?
 
 public:
@@ -49,14 +55,14 @@ public:
   friend class Test;
 };
 
-class ReLULayer : public Layer {
-  using Layer::Layer;
-  void activate() override;
-};
+// class ReLULayer : public Layer {
+//   using Layer::Layer;
+//   void activate() override;
+// };
 
-class TanhLayer : public Layer {
-  using Layer::Layer;
-  void activate() override;
-};
+// class TanhLayer : public Layer {
+//   using Layer::Layer;
+//   void activate() override;
+// };
 
 #endif // !NODE_H

@@ -27,6 +27,10 @@ public:
 
   void initParam();
 
+  // all layers
+  void setActivation(ActivationType a);
+  void setActivation(int layerIndex, ActivationType a);
+
   ~Network();
   friend class Test;
 };

@@ -65,6 +65,7 @@ vector<double> Network::forward(const std::vector<double> &inputs) {
   return layers.back()->vals;
 }
 
+// initialize parameters using Xavier Normal
 void Network::initParam() {
   std::random_device device;
   std::default_random_engine generator(device());
@@ -86,6 +87,17 @@ void Network::initParam() {
     }
   }
 }
+
+void Network::setActivation(ActivationType a) {
+  for (auto &l : layers) {
+    l->activationFunction = a;
+  }
+}
+void Network::setActivation(int layerIndex, ActivationType a) {
+  layers[layerIndex]->activationFunction = a;
+}
+
+void setActivation(int layerIndex, ActivationType a);
 
 Network::~Network() {
   for (auto &l : layers) {

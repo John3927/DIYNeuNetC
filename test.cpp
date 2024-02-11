@@ -42,6 +42,7 @@ public:
     cout << "constructed" << endl;
     net.initParam();
     cout << "param-ed" << endl;
+    net.setActivation(ActivationType::TANH);
     auto result = net.forward(vector<double>{5, 6, 7, 8, 9, 10, -2, -4});
     cout << "fowarded-ed" << endl;
     cout << result[0] << endl;
@@ -49,9 +50,14 @@ public:
     cout << "weird shit" << endl;
     Network n2(2, 2, 1, 2);
 
-    n2.layers[0]->weights = vector<vector<double>>(2, vector<double>(2, 2));
-    n2.layers[1]->weights = vector<vector<double>>(2, vector<double>(2, 2));
+    n2.layers[0]->weights = vector<vector<double>>(2, vector<double>(2, 0.5));
+    n2.layers[1]->weights = vector<vector<double>>(2, vector<double>(2, -0.5));
     n2.layers[1]->bias = 0.5;
+    result = n2.forward(vector<double>({3, 3}));
+    cout << result[0] << endl;
+
+    cout << "tanh" << endl;
+    n2.setActivation(ActivationType::TANH);
     result = n2.forward(vector<double>({3, 3}));
     cout << result[0] << endl;
   }
